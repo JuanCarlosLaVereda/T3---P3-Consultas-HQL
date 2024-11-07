@@ -13,12 +13,12 @@ public class Main {
         EntityTransaction transaction = entityManager.getTransaction();
         try{
             transaction.begin();
-            selectAllPlanets(entityManager);
-            selectEpisodes789(entityManager);
-            selectJediOrder(entityManager);
-            selectCharactersDead(entityManager);
-            selectPlanetsBy2Diameters(entityManager, 0, 10000);
-            select3Charas(entityManager);
+            //selectAllPlanets(entityManager);
+            //selectEpisodes789(entityManager);
+            //selectJediOrder(entityManager);
+            //selectCharactersDead(entityManager);
+            //selectPlanetsBy2Diameters(entityManager, 0, 10000);
+            //select3Charas(entityManager);
             selectAllDeaths(entityManager);
             transaction.commit();
         } finally {
@@ -53,8 +53,7 @@ public class Main {
     }
 
     public static void selectJediOrder(EntityManager entityManager) {
-        TypedQuery<Character> characterByOrder = entityManager.createNamedQuery("Character.byAffiliation", Character.class);
-        characterByOrder.setParameter(1, "Jedi Order");
+        Query characterByOrder = entityManager.createNativeQuery("SELECT c.id, c.name, c.height, c.mass, c.hair_color, c.skin_color, c.eye_color, c.birth_year, c.gender, c.planet_id, c.created_date, c.updated_date, c.url FROM characters c INNER JOIN character_affiliations ca ON c.id = ca.id_character INNER JOIN affiliations a ON ca.id_affiliation = a.id WHERE a.affiliation = 'Jedi Order'", Character.class);
         List<Character> characterList = characterByOrder.getResultList();
         System.out.println("**************************************************** CHARACTER BY Jedi Order ****************************************************");
         for (Character character : characterList) {

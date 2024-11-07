@@ -6,7 +6,6 @@ import org.hibernate.annotations.ColumnDefault;
 import java.time.Instant;
 
 @Entity
-@NamedQuery(name = "Character.byAffiliation", query = "SELECT c FROM Character c JOIN CharacterAffiliation ca ON c.id = ca.idCharacter.id JOIN Affiliation a ON ca.idCharacter.id = a.id WHERE a.affiliation = ?1")
 @Table(name = "characters", schema = "starwars")
 public class Character {
     @Id
